@@ -1,0 +1,108 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import random
+# df_countries = pd.DataFrame(columns=['countries'])
+# df_years = pd.DataFrame(columns=['years'])
+
+# popdata = pd.read_excel(r'API_Download_DS2_en_excel_v2_6229723.xls', sheet_name="Data")
+# popdata.drop(["Country Code", "Indicator Code"], axis=1, inplace=True)
+
+# df_countries = pd.DataFrame(columns=list(popdata['Country Name'].drop_duplicates()))
+# df_countries["countries"] = popdata['Country Name'].drop_duplicates()
+# df_countries.index = np.arange(1, len(df_countries) + 1)
+
+# popdata.drop(["Country Name","Country Code","Indicator Name", "Indicator Code"], axis=1, inplace=True)
+# df_years["years"] = list(popdata.columns)
+# df_years = pd.DataFrame(columns=list(popdata.columns))
+
+all_data = pd.read_excel(r'datafile.xls', sheet_name="Data")
+all_data.drop(["Country Code", "Indicator Code"], axis=1, inplace=True)
+filterData1 = all_data.loc[all_data['Indicator Name'] == "Population, total"].fillna(0)
+filterData2 = all_data.loc[all_data['Indicator Name'] == "Exports of goods and services (BoP, current US$)"].fillna(0)
+filterData3 = all_data.loc[all_data['Indicator Name'] == "Imports of goods and services (constant 2015 US$)"].fillna(0)
+filterData4 = all_data.loc[all_data['Indicator Name'] == "CO2 emissions from electricity and heat production, total (% of total fuel combustion)"].fillna(0)
+filterData5 = all_data.loc[all_data['Indicator Name'] == "CO2 emissions from residential buildings and commercial and public services (% of total fuel combustion)"].fillna(0)
+filterData6 = all_data.loc[all_data['Indicator Name'] == "Manufactures exports (% of merchandise exports)"].fillna(0)
+filterData7 = all_data.loc[all_data['Indicator Name'] == "Urban population (% of total population)"].fillna(0)
+filterData8 = all_data.loc[all_data['Indicator Name'] == "Rural population growth (annual %)"].fillna(0)
+
+
+populationTotal_df = filterData1.transpose()
+populationTotal_df.columns = populationTotal_df.iloc[0]
+populationTotal_df = populationTotal_df.iloc[2:]
+countryList = list(populationTotal_df.columns)
+populationTotal_df['year'] = populationTotal_df.index
+for country in countryList:
+    color = "#" + ''.join([random.choice('0123456789ABCDEF') for j in range(6)])
+    plt.plot(populationTotal_df['year'], populationTotal_df[country].astype(int), color=color)
+plt.legend(list(populationTotal_df.columns))
+plt.xlabel('Year', fontsize=16)
+plt.ylabel('Population', fontsize=16)
+plt.title('Population Comparison by Country', fontsize=16, color='g')
+x = populationTotal_df['year']
+plt.xticks(x[::5],rotation=25)
+current_values = plt.gca().get_yticks()
+plt.gca().set_yticklabels(['{:,.0f}'.format(x) for x in current_values])
+plt.show()
+
+
+Exports_df = filterData2.transpose()
+Exports_df.columns = Exports_df.iloc[0]
+Exports_df = Exports_df.iloc[2:]
+# countryList = list(Exports_df.columns)
+Exports_df['year'] = Exports_df.index
+for country in countryList:
+    color = "#" + ''.join([random.choice('0123456789ABCDEF') for j in range(6)])
+    plt.plot(Exports_df['year'], Exports_df[country], color=color)
+plt.legend(list(Exports_df.columns))
+plt.xlabel('Year', fontsize=16)
+plt.ylabel('Exports in US$', fontsize=16)
+plt.title('Exports in US$ by Country', fontsize=16, color='g')
+x = Exports_df['year']
+plt.xticks(x[::5],rotation=25)
+current_values = plt.gca().get_yticks()
+plt.gca().set_yticklabels(['{:,.0f}'.format(x) for x in current_values])
+plt.show()
+
+
+
+Imports_df = filterData3.transpose()
+Imports_df.columns = Imports_df.iloc[0]
+Imports_df = Imports_df.iloc[2:]
+# countryList = list(Exports_df.columns)
+Imports_df['year'] = Imports_df.index
+for country in countryList:
+    color = "#" + ''.join([random.choice('0123456789ABCDEF') for j in range(6)])
+    plt.plot(Imports_df['year'], Imports_df[country], color=color)
+plt.legend(list(Imports_df.columns))
+plt.xlabel('Year', fontsize=16)
+plt.ylabel('Imports in US$', fontsize=16)
+plt.title('Imports in US$ by Country', fontsize=16, color='g')
+x = Imports_df['year']
+plt.xticks(x[::5],rotation=25)
+current_values = plt.gca().get_yticks()
+plt.gca().set_yticklabels(['{:,.0f}'.format(x) for x in current_values])
+plt.show()
+
+
+
+Manufactures_df = filterData6.transpose()
+Manufactures_df.columns = Manufactures_df.iloc[0]
+Manufactures_df = Manufactures_df.iloc[2:]
+# countryList = list(Exports_df.columns)
+Manufactures_df['year'] = Manufactures_df.index
+for country in countryList:
+    color = "#" + ''.join([random.choice('0123456789ABCDEF') for j in range(6)])
+    plt.plot(Manufactures_df['year'], Manufactures_df[country], color=color)
+plt.legend(list(Manufactures_df.columns))
+plt.xlabel('Year', fontsize=16)
+plt.ylabel('Manufactures Exports in Percent', fontsize=16)  
+plt.title('Manufactures Exports by Country', fontsize=16, color='g')
+x = Manufactures_df['year']
+plt.xticks(x[::5],rotation=25)
+current_values = plt.gca().get_yticks()
+plt.gca().set_yticklabels(['{:,.0f}'.format(x) for x in current_values])
+plt.show()
+
+counterRow = 0
