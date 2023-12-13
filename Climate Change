@@ -34,11 +34,14 @@ countries, years=worldbank_data(filename)
 selected_countries = ['Pakistan', 'Bangladesh']
 
 selected_indicators = [
+    'Population, total',
+    'Exports of goods and services (BoP, current US$)',
+    'Imports of goods and services (constant 2015 US$)',
+    'CO2 emissions from electricity and heat production, total (% of total fuel combustion)',
+    'CO2 emissions from residential buildings and commercial and public services (% of total fuel combustion)',
+    'Manufactures exports (% of merchandise exports)',
+    'Rural population growth (annual %)',
     'Urban population (% of total population)',
-    'CO2 emissions (metric tons per capita)',
-    'Cereal yield (kg per hectare)',
-    'Population growth (annual %)',
-    'Electricity production from renewable sources, excluding hydroelectric (% of total)',
 ]
 
 filtered_data = countries[
@@ -75,3 +78,4 @@ for indicator in selected_indicators:
     indicator_data = filtered_data[filtered_data['Indicator Name'] == indicator]
 
     numeric_data = indicator_data.drop(['Country Name', 'Indicator Name'], axis=1)
+
